@@ -1,0 +1,342 @@
+/**
+ * Customer Segmentation - Demo Mock Dataset
+ * 
+ * IMPORTANT NOTE:
+ * This file provides a curated, standardized sample dataset (Mall Customers dataset, N=200)
+ * strictly for frontend demonstration and development purposes.
+ * 
+ * This data DOES NOT originate from MongoDB or Apache Spark.
+ * When the Spring Boot backend and Spark engine are running, live data
+ * will replace this mock source via services/api.js.
+ */
+
+export const DEMO_METADATA = {
+  isDemoData: true,
+  datasetName: "Mall Customers Benchmark Dataset",
+  totalRecords: 200,
+  features: ["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"],
+  kClusters: 5,
+  clusteringAlgorithm: "K-Means (Demo Baseline)",
+  status: "Simulated Frontend Demo Data"
+};
+
+export const CLUSTERS_INFO = [
+  {
+    id: 0,
+    name: "Sensible Savers",
+    shortName: "Savers",
+    color: "#3b82f6", // Blue
+    badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/30",
+    description: "High annual income but conservative spending behavior. Value conscious and thoughtful buyers.",
+    targetStrategy: "Promote long-term investments, high-yield savings, quality durability, and personalized VIP banking services.",
+    avgIncome: 88.2,
+    avgSpending: 17.1,
+    avgAge: 41.1,
+    customerCount: 35
+  },
+  {
+    id: 1,
+    name: "Balanced Standard",
+    shortName: "Standard",
+    color: "#8b5cf6", // Purple
+    badgeColor: "bg-purple-500/10 text-purple-400 border-purple-500/30",
+    description: "Moderate annual income with moderate spending score. Represents the core mainstream consumer base.",
+    targetStrategy: "Engage with loyalty rewards, seasonal promotional discounts, family bundles, and general cashback offers.",
+    avgIncome: 55.3,
+    avgSpending: 49.5,
+    avgAge: 39.2,
+    customerCount: 81
+  },
+  {
+    id: 2,
+    name: "Target Elite / VIPs",
+    shortName: "Elite VIP",
+    color: "#10b981", // Emerald Green
+    badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+    description: "High annual income and high spending score. High-value consumers with premium taste and high brand loyalty.",
+    targetStrategy: "Roll out exclusive VIP concierge events, early-access luxury products, premium memberships, and high-touch concierge services.",
+    avgIncome: 86.5,
+    avgSpending: 82.1,
+    avgAge: 32.7,
+    customerCount: 39
+  },
+  {
+    id: 3,
+    name: "Careful Budgeters",
+    shortName: "Budgeters",
+    color: "#f59e0b", // Amber
+    badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/30",
+    description: "Low annual income and low spending score. Highly price-sensitive shoppers looking for budget-friendly essentials.",
+    targetStrategy: "Offer clear cost-saving deals, clearance sales, coupon promotions, and essential staple value packs.",
+    avgIncome: 26.3,
+    avgSpending: 20.9,
+    avgAge: 45.2,
+    customerCount: 23
+  },
+  {
+    id: 4,
+    name: "Eager Spenders",
+    shortName: "Spenders",
+    color: "#ec4899", // Pink
+    badgeColor: "bg-pink-500/10 text-pink-400 border-pink-500/30",
+    description: "Lower annual income but high spending score. Trend-driven, enthusiastic shoppers often influenced by social trends.",
+    targetStrategy: "Target with trend-setting flash campaigns, easy installment options (BNPL), social media giveaways, and aspirational marketing.",
+    avgIncome: 25.7,
+    avgSpending: 79.4,
+    avgAge: 25.3,
+    customerCount: 22
+  }
+];
+
+// Curated 200 Mall Customers benchmark entries with realistic feature distributions
+export const MOCK_CUSTOMERS = [
+  // Cluster 3: Low Income, Low Spending (Careful Budgeters)
+  { id: "CUST-001", gender: "Male", age: 19, annualIncome: 15, spendingScore: 39, cluster: 3 },
+  { id: "CUST-002", gender: "Male", age: 21, annualIncome: 15, spendingScore: 81, cluster: 4 },
+  { id: "CUST-003", gender: "Female", age: 20, annualIncome: 16, spendingScore: 6, cluster: 3 },
+  { id: "CUST-004", gender: "Female", age: 23, annualIncome: 16, spendingScore: 77, cluster: 4 },
+  { id: "CUST-005", gender: "Female", age: 31, annualIncome: 17, spendingScore: 40, cluster: 3 },
+  { id: "CUST-006", gender: "Female", age: 22, annualIncome: 17, spendingScore: 76, cluster: 4 },
+  { id: "CUST-007", gender: "Female", age: 35, annualIncome: 18, spendingScore: 6, cluster: 3 },
+  { id: "CUST-008", gender: "Female", age: 23, annualIncome: 18, spendingScore: 94, cluster: 4 },
+  { id: "CUST-009", gender: "Male", age: 64, annualIncome: 19, spendingScore: 3, cluster: 3 },
+  { id: "CUST-010", gender: "Female", age: 30, annualIncome: 19, spendingScore: 72, cluster: 4 },
+  { id: "CUST-011", gender: "Male", age: 67, annualIncome: 19, spendingScore: 14, cluster: 3 },
+  { id: "CUST-012", gender: "Female", age: 35, annualIncome: 19, spendingScore: 99, cluster: 4 },
+  { id: "CUST-013", gender: "Female", age: 58, annualIncome: 20, spendingScore: 15, cluster: 3 },
+  { id: "CUST-014", gender: "Female", age: 24, annualIncome: 20, spendingScore: 77, cluster: 4 },
+  { id: "CUST-015", gender: "Male", age: 37, annualIncome: 20, spendingScore: 13, cluster: 3 },
+  { id: "CUST-016", gender: "Male", age: 22, annualIncome: 20, spendingScore: 79, cluster: 4 },
+  { id: "CUST-017", gender: "Female", age: 35, annualIncome: 21, spendingScore: 35, cluster: 3 },
+  { id: "CUST-018", gender: "Male", age: 20, annualIncome: 21, spendingScore: 66, cluster: 4 },
+  { id: "CUST-019", gender: "Male", age: 52, annualIncome: 23, spendingScore: 29, cluster: 3 },
+  { id: "CUST-020", gender: "Female", age: 35, annualIncome: 23, spendingScore: 98, cluster: 4 },
+  { id: "CUST-021", gender: "Male", age: 35, annualIncome: 24, spendingScore: 35, cluster: 3 },
+  { id: "CUST-022", gender: "Male", age: 25, annualIncome: 24, spendingScore: 73, cluster: 4 },
+  { id: "CUST-023", gender: "Female", age: 46, annualIncome: 25, spendingScore: 5, cluster: 3 },
+  { id: "CUST-024", gender: "Male", age: 31, annualIncome: 25, spendingScore: 73, cluster: 4 },
+  { id: "CUST-025", gender: "Female", age: 54, annualIncome: 28, spendingScore: 14, cluster: 3 },
+  { id: "CUST-026", gender: "Male", age: 29, annualIncome: 28, spendingScore: 82, cluster: 4 },
+  { id: "CUST-027", gender: "Male", age: 45, annualIncome: 28, spendingScore: 32, cluster: 3 },
+  { id: "CUST-028", gender: "Male", age: 35, annualIncome: 28, spendingScore: 61, cluster: 4 },
+  { id: "CUST-029", gender: "Female", age: 40, annualIncome: 29, spendingScore: 31, cluster: 3 },
+  { id: "CUST-030", gender: "Female", age: 23, annualIncome: 29, spendingScore: 87, cluster: 4 },
+  { id: "CUST-031", gender: "Male", age: 60, annualIncome: 30, spendingScore: 4, cluster: 3 },
+  { id: "CUST-032", gender: "Male", age: 60, annualIncome: 30, spendingScore: 10, cluster: 3 },
+  { id: "CUST-033", gender: "Female", age: 18, annualIncome: 33, spendingScore: 92, cluster: 4 },
+  { id: "CUST-034", gender: "Male", age: 18, annualIncome: 33, spendingScore: 92, cluster: 4 },
+  { id: "CUST-035", gender: "Female", age: 49, annualIncome: 33, spendingScore: 14, cluster: 3 },
+  { id: "CUST-036", gender: "Female", age: 21, annualIncome: 33, spendingScore: 81, cluster: 4 },
+  { id: "CUST-037", gender: "Female", age: 42, annualIncome: 34, spendingScore: 17, cluster: 3 },
+  { id: "CUST-038", gender: "Female", age: 30, annualIncome: 34, spendingScore: 73, cluster: 4 },
+  { id: "CUST-039", gender: "Female", age: 36, annualIncome: 37, spendingScore: 26, cluster: 3 },
+  { id: "CUST-040", gender: "Female", age: 20, annualIncome: 37, spendingScore: 75, cluster: 4 },
+  { id: "CUST-041", gender: "Female", age: 65, annualIncome: 38, spendingScore: 35, cluster: 3 },
+  { id: "CUST-042", gender: "Male", age: 24, annualIncome: 38, spendingScore: 92, cluster: 4 },
+  { id: "CUST-043", gender: "Male", age: 48, annualIncome: 39, spendingScore: 36, cluster: 3 },
+  { id: "CUST-044", gender: "Female", age: 31, annualIncome: 39, spendingScore: 61, cluster: 4 },
+
+  // Cluster 1: Medium Income, Medium Spending (Balanced Standard)
+  { id: "CUST-045", gender: "Female", age: 49, annualIncome: 42, spendingScore: 42, cluster: 1 },
+  { id: "CUST-046", gender: "Female", age: 24, annualIncome: 43, spendingScore: 54, cluster: 1 },
+  { id: "CUST-047", gender: "Female", age: 50, annualIncome: 43, spendingScore: 45, cluster: 1 },
+  { id: "CUST-048", gender: "Female", age: 27, annualIncome: 44, spendingScore: 51, cluster: 1 },
+  { id: "CUST-049", gender: "Female", age: 29, annualIncome: 44, spendingScore: 42, cluster: 1 },
+  { id: "CUST-050", gender: "Female", age: 31, annualIncome: 46, spendingScore: 51, cluster: 1 },
+  { id: "CUST-051", gender: "Male", age: 49, annualIncome: 46, spendingScore: 56, cluster: 1 },
+  { id: "CUST-052", gender: "Male", age: 33, annualIncome: 46, spendingScore: 41, cluster: 1 },
+  { id: "CUST-053", gender: "Female", age: 31, annualIncome: 47, spendingScore: 52, cluster: 1 },
+  { id: "CUST-054", gender: "Male", age: 59, annualIncome: 47, spendingScore: 47, cluster: 1 },
+  { id: "CUST-055", gender: "Female", age: 50, annualIncome: 48, spendingScore: 48, cluster: 1 },
+  { id: "CUST-056", gender: "Male", age: 47, annualIncome: 48, spendingScore: 46, cluster: 1 },
+  { id: "CUST-057", gender: "Female", age: 51, annualIncome: 48, spendingScore: 50, cluster: 1 },
+  { id: "CUST-058", gender: "Male", age: 69, annualIncome: 48, spendingScore: 46, cluster: 1 },
+  { id: "CUST-059", gender: "Female", age: 27, annualIncome: 49, spendingScore: 53, cluster: 1 },
+  { id: "CUST-060", gender: "Male", age: 53, annualIncome: 49, spendingScore: 49, cluster: 1 },
+  { id: "CUST-061", gender: "Male", age: 19, annualIncome: 50, spendingScore: 55, cluster: 1 },
+  { id: "CUST-062", gender: "Male", age: 67, annualIncome: 50, spendingScore: 48, cluster: 1 },
+  { id: "CUST-063", gender: "Female", age: 54, annualIncome: 50, spendingScore: 59, cluster: 1 },
+  { id: "CUST-064", gender: "Female", age: 63, annualIncome: 50, spendingScore: 52, cluster: 1 },
+  { id: "CUST-065", gender: "Male", age: 18, annualIncome: 54, spendingScore: 59, cluster: 1 },
+  { id: "CUST-066", gender: "Female", age: 43, annualIncome: 54, spendingScore: 50, cluster: 1 },
+  { id: "CUST-067", gender: "Female", age: 49, annualIncome: 54, spendingScore: 49, cluster: 1 },
+  { id: "CUST-068", gender: "Female", age: 68, annualIncome: 54, spendingScore: 48, cluster: 1 },
+  { id: "CUST-069", gender: "Male", age: 19, annualIncome: 54, spendingScore: 55, cluster: 1 },
+  { id: "CUST-070", gender: "Female", age: 32, annualIncome: 54, spendingScore: 47, cluster: 1 },
+  { id: "CUST-071", gender: "Male", age: 70, annualIncome: 54, spendingScore: 55, cluster: 1 },
+  { id: "CUST-072", gender: "Female", age: 47, annualIncome: 54, spendingScore: 47, cluster: 1 },
+  { id: "CUST-073", gender: "Female", age: 60, annualIncome: 54, spendingScore: 49, cluster: 1 },
+  { id: "CUST-074", gender: "Female", age: 60, annualIncome: 54, spendingScore: 56, cluster: 1 },
+  { id: "CUST-075", gender: "Male", age: 59, annualIncome: 54, spendingScore: 47, cluster: 1 },
+  { id: "CUST-076", gender: "Male", age: 26, annualIncome: 54, spendingScore: 54, cluster: 1 },
+  { id: "CUST-077", gender: "Female", age: 45, annualIncome: 54, spendingScore: 53, cluster: 1 },
+  { id: "CUST-078", gender: "Male", age: 40, annualIncome: 54, spendingScore: 48, cluster: 1 },
+  { id: "CUST-079", gender: "Female", age: 23, annualIncome: 54, spendingScore: 52, cluster: 1 },
+  { id: "CUST-080", gender: "Female", age: 49, annualIncome: 57, spendingScore: 42, cluster: 1 },
+  { id: "CUST-081", gender: "Male", age: 57, annualIncome: 57, spendingScore: 51, cluster: 1 },
+  { id: "CUST-082", gender: "Male", age: 38, annualIncome: 57, spendingScore: 55, cluster: 1 },
+  { id: "CUST-083", gender: "Male", age: 67, annualIncome: 57, spendingScore: 41, cluster: 1 },
+  { id: "CUST-084", gender: "Female", age: 46, annualIncome: 58, spendingScore: 44, cluster: 1 },
+  { id: "CUST-085", gender: "Female", age: 21, annualIncome: 58, spendingScore: 57, cluster: 1 },
+  { id: "CUST-086", gender: "Male", age: 48, annualIncome: 58, spendingScore: 46, cluster: 1 },
+  { id: "CUST-087", gender: "Female", age: 55, annualIncome: 58, spendingScore: 58, cluster: 1 },
+  { id: "CUST-088", gender: "Female", age: 22, annualIncome: 58, spendingScore: 55, cluster: 1 },
+  { id: "CUST-089", gender: "Female", age: 34, annualIncome: 58, spendingScore: 60, cluster: 1 },
+  { id: "CUST-090", gender: "Female", age: 50, annualIncome: 58, spendingScore: 46, cluster: 1 },
+  { id: "CUST-091", gender: "Female", age: 68, annualIncome: 59, spendingScore: 55, cluster: 1 },
+  { id: "CUST-092", gender: "Male", age: 18, annualIncome: 59, spendingScore: 41, cluster: 1 },
+  { id: "CUST-093", gender: "Male", age: 48, annualIncome: 60, spendingScore: 49, cluster: 1 },
+  { id: "CUST-094", gender: "Female", age: 40, annualIncome: 60, spendingScore: 40, cluster: 1 },
+  { id: "CUST-095", gender: "Female", age: 32, annualIncome: 60, spendingScore: 42, cluster: 1 },
+  { id: "CUST-096", gender: "Male", age: 24, annualIncome: 60, spendingScore: 52, cluster: 1 },
+  { id: "CUST-097", gender: "Female", age: 47, annualIncome: 60, spendingScore: 47, cluster: 1 },
+  { id: "CUST-098", gender: "Female", age: 27, annualIncome: 60, spendingScore: 50, cluster: 1 },
+  { id: "CUST-099", gender: "Male", age: 48, annualIncome: 61, spendingScore: 42, cluster: 1 },
+  { id: "CUST-100", gender: "Male", age: 20, annualIncome: 61, spendingScore: 49, cluster: 1 },
+  { id: "CUST-101", gender: "Female", age: 23, annualIncome: 62, spendingScore: 41, cluster: 1 },
+  { id: "CUST-102", gender: "Female", age: 49, annualIncome: 62, spendingScore: 48, cluster: 1 },
+  { id: "CUST-103", gender: "Male", age: 67, annualIncome: 62, spendingScore: 59, cluster: 1 },
+  { id: "CUST-104", gender: "Male", age: 26, annualIncome: 62, spendingScore: 55, cluster: 1 },
+  { id: "CUST-105", gender: "Male", age: 49, annualIncome: 62, spendingScore: 56, cluster: 1 },
+  { id: "CUST-106", gender: "Female", age: 21, annualIncome: 62, spendingScore: 42, cluster: 1 },
+  { id: "CUST-107", gender: "Female", age: 66, annualIncome: 63, spendingScore: 50, cluster: 1 },
+  { id: "CUST-108", gender: "Male", age: 54, annualIncome: 63, spendingScore: 46, cluster: 1 },
+  { id: "CUST-109", gender: "Male", age: 68, annualIncome: 63, spendingScore: 43, cluster: 1 },
+  { id: "CUST-110", gender: "Male", age: 66, annualIncome: 63, spendingScore: 48, cluster: 1 },
+  { id: "CUST-111", gender: "Male", age: 65, annualIncome: 63, spendingScore: 52, cluster: 1 },
+  { id: "CUST-112", gender: "Female", age: 19, annualIncome: 63, spendingScore: 54, cluster: 1 },
+  { id: "CUST-113", gender: "Female", age: 38, annualIncome: 64, spendingScore: 42, cluster: 1 },
+  { id: "CUST-114", gender: "Male", age: 19, annualIncome: 64, spendingScore: 46, cluster: 1 },
+  { id: "CUST-115", gender: "Female", age: 18, annualIncome: 65, spendingScore: 48, cluster: 1 },
+  { id: "CUST-116", gender: "Female", age: 19, annualIncome: 65, spendingScore: 50, cluster: 1 },
+  { id: "CUST-117", gender: "Female", age: 63, annualIncome: 65, spendingScore: 43, cluster: 1 },
+  { id: "CUST-118", gender: "Female", age: 49, annualIncome: 65, spendingScore: 59, cluster: 1 },
+  { id: "CUST-119", gender: "Female", age: 51, annualIncome: 67, spendingScore: 43, cluster: 1 },
+  { id: "CUST-120", gender: "Female", age: 50, annualIncome: 67, spendingScore: 57, cluster: 1 },
+  { id: "CUST-121", gender: "Male", age: 27, annualIncome: 67, spendingScore: 56, cluster: 1 },
+  { id: "CUST-122", gender: "Female", age: 38, annualIncome: 67, spendingScore: 40, cluster: 1 },
+  { id: "CUST-123", gender: "Female", age: 40, annualIncome: 69, spendingScore: 58, cluster: 1 },
+  { id: "CUST-124", gender: "Male", age: 39, annualIncome: 69, spendingScore: 91, cluster: 2 },
+  { id: "CUST-125", gender: "Female", age: 23, annualIncome: 70, spendingScore: 29, cluster: 0 },
+  { id: "CUST-126", gender: "Female", age: 31, annualIncome: 70, spendingScore: 77, cluster: 2 },
+
+  // Cluster 0: High Income, Low Spending (Sensible Savers)
+  // Cluster 2: High Income, High Spending (Target Elite / VIPs)
+  { id: "CUST-127", gender: "Male", age: 43, annualIncome: 71, spendingScore: 35, cluster: 0 },
+  { id: "CUST-128", gender: "Male", age: 40, annualIncome: 71, spendingScore: 95, cluster: 2 },
+  { id: "CUST-129", gender: "Male", age: 59, annualIncome: 71, spendingScore: 11, cluster: 0 },
+  { id: "CUST-130", gender: "Male", age: 38, annualIncome: 71, spendingScore: 75, cluster: 2 },
+  { id: "CUST-131", gender: "Male", age: 47, annualIncome: 71, spendingScore: 9, cluster: 0 },
+  { id: "CUST-132", gender: "Male", age: 39, annualIncome: 71, spendingScore: 75, cluster: 2 },
+  { id: "CUST-133", gender: "Female", age: 25, annualIncome: 72, spendingScore: 34, cluster: 0 },
+  { id: "CUST-134", gender: "Female", age: 31, annualIncome: 72, spendingScore: 71, cluster: 2 },
+  { id: "CUST-135", gender: "Male", age: 20, annualIncome: 73, spendingScore: 5, cluster: 0 },
+  { id: "CUST-136", gender: "Female", age: 29, annualIncome: 73, spendingScore: 88, cluster: 2 },
+  { id: "CUST-137", gender: "Female", age: 44, annualIncome: 73, spendingScore: 7, cluster: 0 },
+  { id: "CUST-138", gender: "Male", age: 32, annualIncome: 73, spendingScore: 73, cluster: 2 },
+  { id: "CUST-139", gender: "Male", age: 19, annualIncome: 74, spendingScore: 10, cluster: 0 },
+  { id: "CUST-140", gender: "Female", age: 35, annualIncome: 74, spendingScore: 72, cluster: 2 },
+  { id: "CUST-141", gender: "Female", age: 57, annualIncome: 75, spendingScore: 5, cluster: 0 },
+  { id: "CUST-142", gender: "Male", age: 32, annualIncome: 75, spendingScore: 93, cluster: 2 },
+  { id: "CUST-143", gender: "Female", age: 28, annualIncome: 76, spendingScore: 40, cluster: 0 },
+  { id: "CUST-144", gender: "Female", age: 32, annualIncome: 76, spendingScore: 87, cluster: 2 },
+  { id: "CUST-145", gender: "Male", age: 25, annualIncome: 77, spendingScore: 12, cluster: 0 },
+  { id: "CUST-146", gender: "Male", age: 28, annualIncome: 77, spendingScore: 97, cluster: 2 },
+  { id: "CUST-147", gender: "Male", age: 48, annualIncome: 77, spendingScore: 36, cluster: 0 },
+  { id: "CUST-148", gender: "Female", age: 32, annualIncome: 77, spendingScore: 74, cluster: 2 },
+  { id: "CUST-149", gender: "Female", age: 34, annualIncome: 78, spendingScore: 22, cluster: 0 },
+  { id: "CUST-150", gender: "Female", age: 30, annualIncome: 78, spendingScore: 78, cluster: 2 },
+  { id: "CUST-151", gender: "Male", age: 43, annualIncome: 78, spendingScore: 17, cluster: 0 },
+  { id: "CUST-152", gender: "Male", age: 32, annualIncome: 78, spendingScore: 89, cluster: 2 },
+  { id: "CUST-153", gender: "Male", age: 44, annualIncome: 78, spendingScore: 20, cluster: 0 },
+  { id: "CUST-154", gender: "Female", age: 38, annualIncome: 78, spendingScore: 76, cluster: 2 },
+  { id: "CUST-155", gender: "Female", age: 47, annualIncome: 78, spendingScore: 16, cluster: 0 },
+  { id: "CUST-156", gender: "Female", age: 27, annualIncome: 78, spendingScore: 89, cluster: 2 },
+  { id: "CUST-157", gender: "Male", age: 37, annualIncome: 78, spendingScore: 1, cluster: 0 },
+  { id: "CUST-158", gender: "Female", age: 30, annualIncome: 78, spendingScore: 78, cluster: 2 },
+  { id: "CUST-159", gender: "Male", age: 34, annualIncome: 78, spendingScore: 1, cluster: 0 },
+  { id: "CUST-160", gender: "Female", age: 30, annualIncome: 78, spendingScore: 73, cluster: 2 },
+  { id: "CUST-161", gender: "Female", age: 56, annualIncome: 79, spendingScore: 35, cluster: 0 },
+  { id: "CUST-162", gender: "Female", age: 29, annualIncome: 79, spendingScore: 83, cluster: 2 },
+  { id: "CUST-163", gender: "Male", age: 19, annualIncome: 81, spendingScore: 5, cluster: 0 },
+  { id: "CUST-164", gender: "Female", age: 31, annualIncome: 81, spendingScore: 93, cluster: 2 },
+  { id: "CUST-165", gender: "Male", age: 50, annualIncome: 85, spendingScore: 26, cluster: 0 },
+  { id: "CUST-166", gender: "Female", age: 36, annualIncome: 85, spendingScore: 75, cluster: 2 },
+  { id: "CUST-167", gender: "Male", age: 42, annualIncome: 86, spendingScore: 20, cluster: 0 },
+  { id: "CUST-168", gender: "Female", age: 33, annualIncome: 86, spendingScore: 95, cluster: 2 },
+  { id: "CUST-169", gender: "Female", age: 36, annualIncome: 87, spendingScore: 27, cluster: 0 },
+  { id: "CUST-170", gender: "Male", age: 32, annualIncome: 87, spendingScore: 63, cluster: 2 },
+  { id: "CUST-171", gender: "Male", age: 40, annualIncome: 87, spendingScore: 13, cluster: 0 },
+  { id: "CUST-172", gender: "Male", age: 28, annualIncome: 87, spendingScore: 75, cluster: 2 },
+  { id: "CUST-173", gender: "Male", age: 36, annualIncome: 87, spendingScore: 10, cluster: 0 },
+  { id: "CUST-174", gender: "Male", age: 36, annualIncome: 87, spendingScore: 92, cluster: 2 },
+  { id: "CUST-175", gender: "Female", age: 52, annualIncome: 88, spendingScore: 13, cluster: 0 },
+  { id: "CUST-176", gender: "Female", age: 58, annualIncome: 88, spendingScore: 15, cluster: 0 },
+  { id: "CUST-177", gender: "Male", age: 58, annualIncome: 88, spendingScore: 15, cluster: 0 },
+  { id: "CUST-178", gender: "Male", age: 27, annualIncome: 88, spendingScore: 69, cluster: 2 },
+  { id: "CUST-179", gender: "Male", age: 59, annualIncome: 93, spendingScore: 14, cluster: 0 },
+  { id: "CUST-180", gender: "Male", age: 35, annualIncome: 93, spendingScore: 90, cluster: 2 },
+  { id: "CUST-181", gender: "Female", age: 37, annualIncome: 97, spendingScore: 32, cluster: 0 },
+  { id: "CUST-182", gender: "Female", age: 32, annualIncome: 97, spendingScore: 86, cluster: 2 },
+  { id: "CUST-183", gender: "Male", age: 46, annualIncome: 98, spendingScore: 15, cluster: 0 },
+  { id: "CUST-184", gender: "Female", age: 29, annualIncome: 98, spendingScore: 88, cluster: 2 },
+  { id: "CUST-185", gender: "Female", age: 41, annualIncome: 99, spendingScore: 39, cluster: 0 },
+  { id: "CUST-186", gender: "Male", age: 30, annualIncome: 99, spendingScore: 97, cluster: 2 },
+  { id: "CUST-187", gender: "Female", age: 54, annualIncome: 101, spendingScore: 24, cluster: 0 },
+  { id: "CUST-188", gender: "Male", age: 28, annualIncome: 101, spendingScore: 68, cluster: 2 },
+  { id: "CUST-189", gender: "Female", age: 41, annualIncome: 103, spendingScore: 17, cluster: 0 },
+  { id: "CUST-190", gender: "Female", age: 36, annualIncome: 103, spendingScore: 85, cluster: 2 },
+  { id: "CUST-191", gender: "Female", age: 34, annualIncome: 103, spendingScore: 23, cluster: 0 },
+  { id: "CUST-192", gender: "Female", age: 32, annualIncome: 103, spendingScore: 69, cluster: 2 },
+  { id: "CUST-193", gender: "Male", age: 33, annualIncome: 113, spendingScore: 8, cluster: 0 },
+  { id: "CUST-194", gender: "Female", age: 38, annualIncome: 113, spendingScore: 91, cluster: 2 },
+  { id: "CUST-195", gender: "Female", age: 47, annualIncome: 120, spendingScore: 16, cluster: 0 },
+  { id: "CUST-196", gender: "Female", age: 35, annualIncome: 120, spendingScore: 79, cluster: 2 },
+  { id: "CUST-197", gender: "Female", age: 45, annualIncome: 126, spendingScore: 28, cluster: 0 },
+  { id: "CUST-198", gender: "Male", age: 32, annualIncome: 126, spendingScore: 74, cluster: 2 },
+  { id: "CUST-199", gender: "Male", age: 32, annualIncome: 137, spendingScore: 18, cluster: 0 },
+  { id: "CUST-200", gender: "Male", age: 30, annualIncome: 137, spendingScore: 83, cluster: 2 }
+];
+
+// Pre-computed aggregation metrics for charts and KPI cards
+export const DEMO_STATISTICS = {
+  totalCustomers: 200,
+  numberOfClusters: 5,
+  avgAnnualIncome: 60.56,
+  avgSpendingScore: 50.20,
+  avgAge: 38.85,
+  dominantSegment: "Balanced Standard (40.5%)",
+  highestIncomeCluster: "Sensible Savers ($88.2k)",
+  highestSpendingCluster: "Target Elite / VIPs (82.1/100)"
+};
+
+// Segment distribution array for Recharts Pie / Donut
+export const SEGMENT_DISTRIBUTION = [
+  { name: "Sensible Savers", value: 35, color: "#3b82f6", clusterId: 0, percentage: 17.5 },
+  { name: "Balanced Standard", value: 81, color: "#8b5cf6", clusterId: 1, percentage: 40.5 },
+  { name: "Target Elite / VIPs", value: 39, color: "#10b981", clusterId: 2, percentage: 19.5 },
+  { name: "Careful Budgeters", value: 23, color: "#f59e0b", clusterId: 3, percentage: 11.5 },
+  { name: "Eager Spenders", value: 22, color: "#ec4899", clusterId: 4, percentage: 11.0 }
+];
+
+// Cluster profile comparison for Recharts Bar Chart
+export const CLUSTER_COMPARISON = [
+  { cluster: "Savers (C0)", avgIncome: 88.2, avgSpending: 17.1, avgAge: 41.1, size: 35, fill: "#3b82f6" },
+  { cluster: "Standard (C1)", avgIncome: 55.3, avgSpending: 49.5, avgAge: 39.2, size: 81, fill: "#8b5cf6" },
+  { cluster: "Elite VIP (C2)", avgIncome: 86.5, avgSpending: 82.1, avgAge: 32.7, size: 39, fill: "#10b981" },
+  { cluster: "Budgeters (C3)", avgIncome: 26.3, avgSpending: 20.9, avgAge: 45.2, size: 23, fill: "#f59e0b" },
+  { cluster: "Spenders (C4)", avgIncome: 25.7, avgSpending: 79.4, avgAge: 25.3, size: 22, fill: "#ec4899" }
+];
+
+// Spark MLlib K-Means Elbow Curve evaluation data (WCSS vs K)
+export const ELBOW_CURVE_DATA = [
+  { k: 1, wcss: 269981.28 },
+  { k: 2, wcss: 181363.60 },
+  { k: 3, wcss: 106345.92 },
+  { k: 4, wcss: 73679.79 },
+  { k: 5, wcss: 44448.45 }, // Optimal Elbow Point
+  { k: 6, wcss: 37265.48 },
+  { k: 7, wcss: 30259.01 },
+  { k: 8, wcss: 25110.32 }
+];
+

@@ -1,0 +1,7 @@
+com\customersegmentation\spark\model\SegmentationResult.class
+com\customersegmentation\spark\model\ClusterSummary.class
+com\customersegmentation\spark\model\ElbowPoint.class
+com\customersegmentation\spark\model\CustomerRecord.class
+com\customersegmentation\spark\service\SparkKMeansEngine.class
+jakarta\servlet\SingleThreadModel.class
+com\customersegmentation\spark\config\SparkSessionFactory.class
